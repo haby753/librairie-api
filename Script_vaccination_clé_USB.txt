@@ -1,0 +1,5 @@
+Ce script vous permets de vacciner une clé USB, cela ne permettra pas à votre clé d'être insensible aux vers.
+Mais il ne pourra plus déployé les vers qui le contiennent car l'autorun sera bloqué.
+Cela crée un dossier autorun insupprimmable par le biais d'un sous dossiers protégé lui même.
+
+Credit EVA
