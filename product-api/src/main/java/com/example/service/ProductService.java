@@ -1,65 +1,65 @@
 package com.example.service;
 
-// Import du modèle Product
+// Import the Product model
 import com.example.model.Product;
 
-// Import du repository qui permet d'accéder à la base de données
+// Import the repository used to access the database
 import com.example.repository.ProductRepository;
 
-// Annotation qui indique que cette classe est un service Spring
+// Annotation that marks this class as a Spring service
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-// Indique à Spring que cette classe contient de la logique métier
+// Indicates that this class contains business logic
 @Service
 public class ProductService {
 
-    // Déclaration du repository pour interagir avec la base de données
+    // Repository used to interact with the database
     private final ProductRepository productRepository;
 
-    // Constructeur avec injection de dépendance (Spring injecte automatiquement le repository)
+    // Constructor with dependency injection (Spring automatically injects the repository)
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    // Méthode pour récupérer tous les produits
+    // Method to retrieve all products
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    // Méthode pour récupérer un produit par son ID
-    // Si le produit n'existe pas, retourne null
+    // Method to retrieve a product by its ID
+    // Returns null if the product does not exist
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    // Méthode pour créer un nouveau produit
+    // Method to create a new product
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 
-    // Méthode pour mettre à jour un produit existant
+    // Method to update an existing product
     public Product updateProduct(Long id, Product productDetails) {
 
-        // On récupère le produit existant
+        // Retrieve the existing product
         Product product = getProductById(id);
 
-        // Si le produit existe, on met à jour ses informations
+        // If the product exists, update its fields
         if (product != null) {
             product.setName(productDetails.getName());
             product.setDescription(productDetails.getDescription());
             product.setPrice(productDetails.getPrice());
 
-            // On sauvegarde les modifications en base
+            // Save the updated product to the database
             return productRepository.save(product);
         }
 
-        // Si le produit n'existe pas, on retourne null
+        // Return null if the product does not exist
         return null;
     }
 
-    // Méthode pour supprimer un produit par son ID
+    // Method to delete a product by its ID
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
